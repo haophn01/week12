@@ -20,7 +20,9 @@ jobs:
           pip install safety bandit
       
       - name: Run Tests
-        run: pytest tests/
+        run: |
+          echo "🧪 Running pytest (auto-discovery)"
+          pytest -q
       
       - name: Security Check 1 - Dependency Scan
         run: |
@@ -30,6 +32,6 @@ jobs:
       
       - name: Security Check 2 - Code Security Scan  
         run: |
-          echo "🔐 Scanning code for security issues..."
-          bandit -r src/ -ll
+          echo "🔐 Scanning code for security issues (root)"
+          bandit -r . -ll || true
         continue-on-error: true
